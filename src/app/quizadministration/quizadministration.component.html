@@ -1,0 +1,27 @@
+
+<table class="table table-striped">
+  <tbody>
+  <tr *ngFor="let quiz of quizzes; let i = index;">
+
+      <td>
+        <h3>{{quiz.title}}</h3>
+     </td>
+    <td>
+      <p>by {{findUser(quiz.userId)}}</p>
+    </td>
+    <td>
+      <p>{{quiz.timestamp}}</p>
+    </td>
+    <td>
+      <button (click)="deleteQuiz(quiz.id,i)"   class="btn btn-danger center-block ">DELETE</button>
+    </td>
+    <td *ngIf="quiz.public == 0">
+      <button  (click)="updateQuizPrivate(quiz)"   class="btn btn-success center-block">PUBLIC</button>
+    </td>
+    <td *ngIf="quiz.public == 1">
+      <button  (click)="updateQuizPublic(quiz)"   class="btn btn-danger center-block">PRIVATE</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+

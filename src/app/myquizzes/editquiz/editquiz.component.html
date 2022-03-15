@@ -1,0 +1,244 @@
+<table class="table table-striped">
+  <tbody>
+  <tr>
+    <td>
+      <button *ngIf="!dodavanje" (click)="pokretanjedodavanja()" class="btn btn-success">Dodaj novo pitanje</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<form *ngIf="dodavanje" novalidate #formadodavanja="ngForm" class="dodajforma" >
+  <table class="table table-striped">
+    <tbody>
+    <tr>
+      <td>
+        <p> Pitanje:</p>
+      </td>
+      <td>
+         <textarea [ngClass]="{
+                  'is-invalid': pitanja2.invalid && (pitanja2.dirty || pitanja2.touched),
+                  'is-valid': pitanja2.valid && (pitanja2.dirty || pitanja2.touched)}" name="pitanja2" [(ngModel)]="pitanje2.questionText" id="pitanja2" #pitanja2="ngModel" required class="form-control"></textarea>
+        <div class="form-control-feedback"
+             *ngIf="pitanja2.errors && (pitanja2.dirty || pitanja2.touched)">
+          <p class="text-danger" *ngIf="pitanja2.errors?.['required']">Question is required</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>A:</p>
+      </td>
+      <td>
+        <input  [ngClass]="{
+                  'is-invalid': aunos.invalid && (aunos.dirty || aunos.touched),
+                  'is-valid': aunos.valid && (aunos.dirty || aunos.touched)}"
+                name="adodaj" [(ngModel)]="pitanje2.a"   id="aunos" #aunos="ngModel" required class="form-control"  type="text" />
+        <div class="form-control-feedback"
+             *ngIf="aunos.errors && (aunos.dirty || aunos.touched)">
+          <p class="text-danger" *ngIf="aunos.errors?.['required']">Answer A is required</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>B:</p>
+      </td>
+      <td>
+        <input  [ngClass]="{
+                  'is-invalid': bunos.invalid && (bunos.dirty || bunos.touched),
+                  'is-valid': bunos.valid && (bunos.dirty || bunos.touched)}"
+                name="bdodaj" [(ngModel)]="pitanje2.b"   id="bunos" #bunos="ngModel" required class="form-control"  type="text" />
+        <div class="form-control-feedback"
+             *ngIf="bunos.errors && (bunos.dirty || bunos.touched )">
+          <p class="text-danger" *ngIf="bunos.errors?.['required']">Answer B is required</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>C:</p>
+      </td>
+      <td>
+        <input  [ngClass]="{
+                  'is-invalid': cunos.invalid && (cunos.dirty || cunos.touched),
+                  'is-valid': cunos.valid && (cunos.dirty || cunos.touched)}"
+                name="cdodaj" [(ngModel)]="pitanje2.c"   id="cunos" #cunos="ngModel" required class="form-control"  type="text" />
+        <div class="form-control-feedback"
+             *ngIf="cunos.errors && (cunos.dirty || cunos.touched)">
+          <p class="text-danger" *ngIf="cunos.errors?.['required']">Answer C is required</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>D:</p>
+      </td>
+      <td>
+        <input  [ngClass]="{
+                  'is-invalid': dunos.invalid && (dunos.dirty || dunos.touched),
+                  'is-valid': dunos.valid && (dunos.dirty || dunos.touched)}"
+                name="ddodaj" [(ngModel)]="pitanje2.d"   id="dunos" #dunos="ngModel" required class="form-control"  type="text" />
+        <div class="form-control-feedback"
+             *ngIf="dunos.errors && (dunos.dirty || dunos.touched)">
+          <p class="text-danger" *ngIf="dunos.errors?.['required']"> Answer D is required</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Točan odgovor:</p>
+      </td>
+      <td>
+        <select id="dodaj" class="form-control" >
+          <option value="{{pitanje2.a}}" >A</option>
+          <option value="{{pitanje2.b}}" >B</option>
+          <option value="{{pitanje2.c}}" >C</option>
+          <option value="{{pitanje2.d}}" >D</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="btn btn-success"   type="button"   [disabled]="!formadodavanja.valid" value="Dodaj" (click)="addQuestion()">
+      </td>
+      <td>
+        <input class="btn btn-danger"  type="button"  value="Cancel" (click)="pokretanjedodavanja()">
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+
+<div *ngIf="this.pitanja.length>=1" id="gotovapitanja">
+  <ng-container *ngFor="let question of this.questions; let i = index">
+    <table class="table table-dark">
+      <tbody>
+      <tr>
+        <td>
+          <p>Pitanje {{i + 1}} : {{question.questionText}}</p>
+        </td>
+        <td>
+          <button class="btn btn-warning"  (click)="editanje(i)" [disabled]="editam">Edit</button>
+        </td>
+        <td>
+          <button [disabled]="editam" class="btn btn-danger"  (click)="deleteQuestion(question.id,i)" >Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <form novalidate #form="ngForm" id="forma{{i}}" class="sveforme">
+      <table class="table table-striped">
+        <tbody>
+
+        <tr>
+          <td>
+            <p>Pitanje:</p>
+          </td>
+
+          <td >
+            <textarea [ngClass]="{
+                  'is-invalid': text.invalid && (text.dirty || text.touched),
+                  'is-valid': text.valid && (text.dirty || text.touched)}" name="text" [(ngModel)]="question.questionText" id="pitanje1" #text="ngModel" required class="form-control" id="pitanje1"></textarea>
+            <div class="form-control-feedback"
+                 *ngIf="text.errors && (text.dirty || text.touched || text.pristine)">
+              <p class="text-danger" *ngIf="text.errors?.['required']">Question is required</p>
+            </div>
+
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>A:</p>
+          </td>
+          <td>
+            <input  [ngClass]="{
+                  'is-invalid': a.invalid && (a.dirty || a.touched),
+                  'is-valid': a.valid && (a.dirty || a.touched)}"
+                             name="a" [(ngModel)]="question.a"   id="a" #a="ngModel" required class="form-control"  type="text" />
+            <div class="form-control-feedback"
+                 *ngIf="a.errors && (a.dirty || a.touched || a.pristine)">
+              <p class="text-danger" *ngIf="a.errors?.['required']">Answer A is required</p>
+            </div>
+            </td>
+        </tr>
+        <tr>
+          <td>
+            <p>B:</p>
+          </td>
+          <td>
+            <input  [ngClass]="{
+                  'is-invalid': b.invalid && (b.dirty || b.touched),
+                  'is-valid': b.valid && (b.dirty || b.touched)}"
+                             name="b" [(ngModel)]="question.b"   id="b" #b="ngModel" required class="form-control"  type="text" />
+            <div class="form-control-feedback"
+                 *ngIf="b.errors && (b.dirty || b.touched || b.pristine)">
+              <p class="text-danger" *ngIf="b.errors?.['required']">Answer B is required</p>
+            </div>
+          </td>
+          </tr>
+        <tr>
+          <td>
+            <p>C:</p>
+          </td>
+          <td>
+            <input  [ngClass]="{
+                  'is-invalid': c.invalid && (c.dirty || c.touched),
+                  'is-valid': c.valid && (c.dirty || c.touched)}"
+                             name="c" [(ngModel)]="question.c"   id="c" #c="ngModel" required class="form-control"  type="text" />
+            <div class="form-control-feedback"
+                 *ngIf="c.errors && (c.dirty || c.touched || c.pristine)">
+              <p class="text-danger" *ngIf="c.errors?.['required']">Answer C is required</p>
+            </div>
+            </td>
+          </tr>
+        <tr>
+          <td>
+            <p>D:</p>
+          </td>
+          <td>
+            <input  [ngClass]="{
+                  'is-invalid': d.invalid && (d.dirty || d.touched),
+                  'is-valid': d.valid && (d.dirty || d.touched)}"
+                             name="d" [(ngModel)]="question.d"   id="d" #d="ngModel" required class="form-control"  type="text" />
+            <div class="form-control-feedback"
+                 *ngIf="d.errors && (d.dirty || d.touched || d.pristine)">
+              <p class="text-danger" *ngIf="d.errors?.['required']"> Answer D is required</p>
+            </div>
+
+          </td>
+        </tr>
+
+      <tr>
+        <td >
+          <p>Točan odgovor:</p>
+        </td>
+        <td>
+          <select id="tocan{{i}}" class="form-control" >
+            <option *ngIf="question.correctAnswer == question.a" value="{{question.a}}" selected>A</option>
+            <option *ngIf="question.correctAnswer != question.a" value="{{question.a}}" >A</option>
+            <option *ngIf="question.correctAnswer == question.b" value="{{question.b}}" selected>B</option>
+            <option *ngIf="question.correctAnswer != question.b" value="{{question.b}}" >B</option>
+            <option *ngIf="question.correctAnswer == question.c" value="{{question.c}}" selected>C</option>
+            <option *ngIf="question.correctAnswer != question.c" value="{{question.c}}" >C</option>
+            <option *ngIf="question.correctAnswer == question.d" value="{{question.d}}" selected>D</option>
+            <option *ngIf="question.correctAnswer != question.d" value="{{question.d}}" >D</option>
+          </select>
+        </td>
+        <td >
+        </td>
+      </tr>
+        <tr>
+          <td>
+            <input class="btn btn-success" id='prihvati'  type="button"  (click)="updateQuestion(i)" [disabled]="!form.valid" value="Accept changes">
+          </td>
+          <td >
+            <input class="btn btn-danger"  (click)="prekiniEditanje(i)" type="button"  value="Cancel">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </form>
+  </ng-container>
+</div>

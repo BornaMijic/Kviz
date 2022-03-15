@@ -1,0 +1,18 @@
+.okvir{
+  border: 1px black solid;
+}
+
+.lijevo{
+  float:left;
+}
+
+.ocisti{
+  clear:both;
+}
+
+.centar{
+  margin-top:15px;
+  margin-bottom:15px;
+  margin-left:15px;
+}
+

@@ -1,0 +1,57 @@
+<div>
+
+
+
+          <form novalidate #form="ngForm" >
+            <table class="table table-striped">
+              <tbody>
+              <tr *ngFor="let quiz of quizzes; let i = index;">
+                 <td *ngIf="editanje == false || this.indexNaKojemSeEdita != i;else editanjeKviza;"><p>{{quiz.title}}</p></td>
+                  <td *ngIf="editanje == false || this.indexNaKojemSeEdita != i;else editanjeKategorija;">
+                    <p>{{findCategory(quiz.idCategory)}}</p>
+                  </td>
+
+                  <ng-template #editanjeKviza>
+                    <td><input [ngClass]="{
+                  'is-invalid': title.invalid && (title.dirty || title.touched),
+                  'is-valid': title.valid && (title.dirty || title.touched)}"
+                           name="title" [(ngModel)]="quiz.title"   id="title" #title="ngModel" required type="text" class="form-control" />
+                    <div class="form-control-feedback"
+                         *ngIf="title.errors && (title.dirty || title.touched || title.pristine)">
+                      <p class="text-danger" *ngIf="title.errors?.['required']">Quiz title is required</p>
+                    </div></td>
+                  </ng-template>
+                <ng-template #editanjeKategorija>
+                    <td><select id="idCategory{{i}}" class="form-select">
+                      <ng-container *ngFor="let category of kategorije; let i = index;">
+                        <option *ngIf="quiz.idCategory == category.id" Selected value="{{category.id}}">{{category.name}}</option>
+                        <option *ngIf="quiz.idCategory != category.id" value="{{category.id}}">{{category.name}}</option>
+                      </ng-container>
+                    </select></td>
+                </ng-template>
+                <td><button  *ngIf="editanje == false || this.indexNaKojemSeEdita != i;else mogucnostEditanja" (click)="editQuiz(i,quiz.idCategory)" class="btn btn-warning" [disabled]="editanje" >Edit Quiz</button>
+                  <ng-template #mogucnostEditanja>
+                    <button [disabled]="!form.valid" (click)="updateQuiz(quiz,i)" class="btn btn-warning" >
+                      Done editing
+                    </button>
+                  </ng-template>
+                </td>
+                <td>
+                  <p>{{quiz.timestamp}}</p>
+
+                </td>
+                <td>
+                  <button [routerLink]="['editquiz',quiz.id]" class="btn btn-warning" >Edit Questions</button>
+                </td>
+                <td>
+                  <button (click)="deleteQuiz(quiz.id,i)" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+</div>
+
+
+
+

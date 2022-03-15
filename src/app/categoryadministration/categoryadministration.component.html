@@ -1,0 +1,67 @@
+<form novalidate #form="ngForm">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <label>Category name</label>
+        </td>
+        <td>
+          <input [ngClass]="{
+                  'is-invalid': name.invalid && (name.dirty || name.touched),
+                  'is-valid': name.valid && (name.dirty || name.touched)}" name="name" [(ngModel)]="kategorija.name" type="text" class="form-control" required minlength="4" #name="ngModel"/>
+          <div class="form-control-feedback"
+               *ngIf="name.errors && (name.dirty || name.touched)">
+            <p class="text-danger" *ngIf="name.errors?.['required']">Category is required</p>
+            <p class="text-danger" *ngIf="name.errors?.['minlength']">Category needs to have atleast 4 letters</p>
+          </div>
+        </td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <button class="btn btn-success"  (click)="addCategory()" [disabled]="!form.valid">Create Category</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+        <form novalidate #form1="ngForm">
+          <table class="table table-striped">
+            <tbody>
+            <ng-container *ngFor="let kategorija of kategorije; let i = index;">
+            <tr>
+                <td>
+                  <div *ngIf="editanje == false || this.indexNaKojemSeEdita != i;else editanjeKviza;"><p>{{kategorija.name}}</p></div>
+                  <ng-template #editanjeKviza>
+                    <input [ngClass]="{
+                  'is-invalid': name.invalid && (name.dirty || name.touched),
+                  'is-valid': name.valid && (name.dirty || name.touched)}" name="ime" [(ngModel)]="kategorija.name"
+                           id="kategorija" type="text" class="form-control" #name="ngModel" required minlength="4" />
+                    <div class="form-control-feedback"
+                         *ngIf="name.errors && (name.dirty || name.touched || name.pristine)">
+                      <p class="text-danger" *ngIf="name.errors?.['required']">Category is required</p>
+                      <p class="text-danger" *ngIf="name.errors?.['minlength']">Category needs to have atleast 4 letters</p>
+                    </div>
+                  </ng-template>
+                </td>
+                <td>
+                  <button  *ngIf="editanje == false || this.indexNaKojemSeEdita != i;else mogucnostEditanja" (click)="editCategory(i)" class="btn btn-warning" [disabled]="editanje" >Edit</button>
+                  <ng-template #mogucnostEditanja>
+                    <button (click)="updateCategory(kategorija)" class="btn btn-warning" [disabled]="!form1.valid">
+                      Done editing
+                    </button>
+                  </ng-template>
+                </td>
+                <td>
+                  <button (click)="deleteCategory(kategorija.id,i)" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+
+
+        </form>
+
+
+
+

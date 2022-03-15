@@ -1,0 +1,15 @@
+<table class="table table-striped">
+  <tbody>
+  <tr *ngFor="let korisnik of korisnici; let i = index;">
+      <td>
+        <h3>{{korisnik.username}}</h3>
+      </td>
+    <td>
+      <button *ngIf="korisnik.activeAccount == 0 && korisnik.admin != 1" (click)="updateUserBlock(korisnik)"   class="btn btn-success lijevo centar">ACTIVE</button>
+    </td>
+    <td>
+      <button *ngIf="korisnik.activeAccount == 1 && korisnik.admin != 1" (click)="updateUserUnblock(korisnik)"   class="btn btn-danger lijevo centar">BLOCK</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

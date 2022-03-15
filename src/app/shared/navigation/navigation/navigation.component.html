@@ -1,0 +1,15 @@
+<nav class=" navbar-dark bg-primary">
+  <div collapse navbar-collapse>
+    <ul>
+      <li><a [routerLink]="['']" href="#quizzes">Quizzes</a></li>
+      <li><a *ngIf="authenticated" [routerLink]="['create']" href="#createyourownquiz">Create your own quiz</a></li>
+      <li><a *ngIf="authenticated" [routerLink]="['myquizzes']" href="#myquizzes">My Quizzes</a></li>
+      <li><a *ngIf="authenticated && admin" [routerLink]="['quizadministration']"href="#quizadministration">Quizzes Administration</a></li>
+      <li><a *ngIf="authenticated && admin" [routerLink]="['categoryadministration']"href="#quizadministration">Categories Administration</a></li>
+      <li><a *ngIf="authenticated && admin" [routerLink]="['useradministration']"href="#quizadministration">Users Administration</a></li>
+      <li><a *ngIf="authenticated" (click)="Logout()" href="#logout">Logout</a></li>
+      <li><a *ngIf="!authenticated" [routerLink]="['login']"href="#login">Login</a></li>
+      <li><a *ngIf="!authenticated" [routerLink]="['register']"href="#register">Register</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,34 @@
+<form [formGroup]="loginForm">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <label>Username:</label>
+        </td>
+        <td>
+          <input placeholder="Username" type="text" formControlName="username">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Password:</label>
+        </td>
+        <td>
+          <input placeholder="Password"   type="password" formControlName="password">
+        </td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <input (click)="login()" type="button" [disabled]="!loginForm.valid" value="Login">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p class="text-danger" *ngIf="uspjehLogina.active!=false && uspjehLogina.username==false">Wrong username</p>
+        <p class="text-danger" *ngIf="uspjehLogina.active!=false && uspjehLogina.password==false">Wrong password</p>
+        <p class="text-danger" *ngIf="uspjehLogina.active==false">Banned</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>

@@ -1,0 +1,49 @@
+<table class="table table-striped">
+  <thead *ngIf="krajKviza">
+  <tr>
+    <th></th>
+    <th class="text-center" >Correct answers</th>
+    <th class="text-center" >Number of answers</th>
+    <th class="text-center" >Percentage</th>
+  </tr>
+  </thead>
+  <ng-container *ngFor="let pitanje of pitanja; let i = index;">
+    <tbody>
+    <tr *ngIf="brojPitanja===i">
+      <td colspan="4" class="text-center"><p>{{i+1}}. {{pitanje.questionText}}</p></td>
+    </tr>
+    <tr *ngIf="brojPitanja===i">
+      <ng-container *ngFor="let odgovori of pitanje.answers; let j = index;">
+        <td>
+          <button class="btn btn-secondary w-100 center-block p-3" (click)="provjeravanjeOdgovora(i,j)"> {{odgovori}}</button>
+        </td>
+      </ng-container>
+    </tr>
+    </tbody>
+  </ng-container>
+  <tbody>
+  <tr *ngIf="krajKviza">
+    <td>
+      <div class="text-center" >Result:</div>
+    </td>
+    <td>
+      <div class="text-center" >{{this.bodovi}}</div>
+    </td>
+    <td>
+      <div class="text-center" >{{this.pitanja.length}}</div>
+    </td>
+    <td>
+      <div class="text-center">{{calculatingPercentage()}}%</div>
+    </td>
+  </tr>
+  <tr *ngIf="krajKviza">
+    <td colspan="4">
+      <button class="btn btn-secondary w-100 center-block p-3" (click)="return()"> Return</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+
+

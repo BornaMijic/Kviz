@@ -1,0 +1,86 @@
+<form [formGroup]="userForm">
+  <table class="table ">
+    <tbody>
+     <tr>
+       <td>
+         <label>Username:</label>
+       </td>
+       <td>
+         <input class="form-control" placeholder="Username" type="text" id="username" formControlName="username">
+         <div
+              *ngIf="userForm.get('username').errors && (userForm.get('username').dirty || userForm.get('username').touched )">
+         <p class="text-danger" *ngIf="userForm.get('username').errors?.required">
+           Username is required.
+         </p>
+         <p class="text-danger" *ngIf="userForm.get('username').errors?.['minlength']">
+           You have to have atleast 4 letters.
+         </p>
+         </div>
+       </td>
+     </tr>
+     <tr>
+     <td>
+       <label>Password:</label>
+     </td>
+     <td>
+       <input class="form-control" placeholder="Password"   type="password" formControlName="password">
+       <div
+            *ngIf="userForm.get('password').errors && (userForm.get('password').dirty || userForm.get('password').touched )">
+       <p class="text-danger" *ngIf="userForm.get('password').errors?.required">
+         Password is required.
+       </p>
+       <p class="text-danger" *ngIf="userForm.get('password').errors?.['minlength']">
+         You have to have atleast 4 letters.
+       </p>
+       </div>
+     </td>
+     </tr>
+     <tr>
+       <td>
+         <label>Password:</label>
+       </td>
+       <td>
+         <input class="form-control" placeholder="Repeat password"  type="password" formControlName="password1">
+         <div
+              *ngIf="userForm.get('password1').errors && (userForm.get('password1').dirty || userForm.get('password1').touched )">
+         <p *ngIf="samepassword" class="text-danger">Passwords are not same</p>
+         <p class="text-danger" *ngIf="userForm.get('password1').errors?.required">
+          Repeat password is required.
+         </p>
+         <p class="text-danger" *ngIf="userForm.get('password1').errors?.['minlength']">
+           You have to have atleast 4 letters.
+         </p>
+           </div>
+       </td>
+     </tr>
+     <tr>
+       <td>
+         <label>Email:</label>
+       <td>
+       <input class="form-control" placeholder="E-mail"   type="email"  formControlName="email">
+       <div
+            *ngIf="userForm.get('email').errors && (userForm.get('email').dirty || userForm.get('email').touched )">
+       <p class="text-danger" *ngIf="userForm.get('email').errors?.required">
+         Email is required
+       </p>
+       <p class="text-danger" *ngIf="userForm.get('email').errors?.['email']">
+         Email has to have correct pattern
+       </p>
+       </div>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+         <input  (click)=addUser() type="button"  [disabled]="!userForm.valid" value="Register">
+       </td>
+     </tr>
+     <tr>
+       <td *ngIf="istina" colspan="2">
+         <p class="text-danger">Username is already used</p>
+       </td>
+     </tr>
+    </tbody>
+  </table>
+</form>
+
+

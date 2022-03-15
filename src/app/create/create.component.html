@@ -1,0 +1,37 @@
+<form novalidate #form="ngForm">
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>
+          <label>Naziv Kviza</label>
+        </td>
+        <td>
+          <input [ngClass]="{
+                  'is-invalid': title.invalid && (title.dirty || title.touched),
+                  'is-valid': title.valid && (title.dirty || title.touched)}" name="title" required minlength="3" class="form-control" type="text"  [(ngModel)]="naslov" #title="ngModel"/>
+          <div class="form-control-feedback"
+               *ngIf="title.errors && (title.dirty || title.touched)">
+            <p class="text-danger" *ngIf="title.errors?.['required']">Category is required</p>
+            <p class="text-danger" *ngIf="title.errors?.['minlength']">Category needs to have atleast 4 letters</p>
+          </div>
+        </td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <select id="idCategory" class="form-select">
+          <ng-container *ngFor="let category of kategorije; let i = index;">
+            <option value="{{category.id}}">{{category.name}}</option>
+          </ng-container>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="btn btn-success" type="button" (click)="onClick()" [disabled]="!form.valid" value="Create quiz"/>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+
